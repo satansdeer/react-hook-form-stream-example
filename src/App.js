@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { useForm } from "react-hook-form";
+import { PopulatableInput } from "./PopulatableInput";
 
 function App() {
+  const { register, handleSubmit, setValue, control } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <label>
+        Default Title:
+        <input {...register("defaultTitle")} />
+      </label>
+      <hr />
+      <PopulatableInput
+        control={control}
+        name="facebookTitle"
+        setValue={setValue}
+        label="Facebook Title:"
+      />
+      <hr />
+      <PopulatableInput
+        control={control}
+        name="youtubeTitle"
+        setValue={setValue}
+        label="Youtube Title:"
+      />
+			<hr />
+      <button>Submit</button>
+    </form>
   );
 }
 
